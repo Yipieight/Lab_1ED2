@@ -21,7 +21,7 @@ Para instalar y ejecutar este proyecto, sigue los siguientes pasos:
 
    ```sh
    git clone https://github.com/Yipieight/Lab_1ED2.git
-   cd tu-repositorio
+   cd Lab_1ED2
    ```
 
 2. **Compila y construye el proyecto utilizando Maven:**
