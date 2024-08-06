@@ -43,6 +43,7 @@ Para ejecutar el proyecto, utiliza el siguiente comando:
 ```sh
 mvn exec:java -Dexec.mainClass="org.example.Main"
 ```
+O, en todo caso puede darle al icono de RUN en el IDE que se encuentre.
 
 ### Estructura del Código
 
