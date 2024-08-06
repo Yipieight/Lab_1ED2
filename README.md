@@ -81,20 +81,6 @@ El archivo `Main.java` muestra cómo se pueden realizar estas operaciones:
   System.out.println(foundBook);
   ```
 
-### Lectura y Escritura de Archivos
-
-El proyecto lee datos de `lab01_books.csv` y escribe los resultados en `Output_Jose_Garcia_Lab1.txt`. Asegúrate de que estos archivos estén presentes en el directorio raíz del proyecto antes de ejecutar.
-
-## Contribuciones
-
-Si deseas contribuir a este proyecto, por favor sigue los siguientes pasos:
-
-1. Haz un fork del proyecto.
-2. Crea una rama para tu nueva funcionalidad (`git checkout -b feature/nueva-funcionalidad`).
-3. Realiza un commit de tus cambios (`git commit -am 'Añadir nueva funcionalidad'`).
-4. Sube tus cambios a tu rama (`git push origin feature/nueva-funcionalidad`).
-5. Abre un Pull Request.
-
 ## Licencia
 
 Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para más detalles.
