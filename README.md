@@ -81,7 +81,3 @@ El archivo `Main.java` muestra cómo se pueden realizar estas operaciones:
   System.out.println(foundBook);
   ```
 
-## Licencia
-
-Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) para más detalles.
-
