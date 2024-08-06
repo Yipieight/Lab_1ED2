@@ -20,7 +20,7 @@ Para instalar y ejecutar este proyecto, sigue los siguientes pasos:
 1. **Clona el repositorio:**
 
    ```sh
-   git clone https://github.com/tu-usuario/tu-repositorio.git
+   git clone https://github.com/Yipieight/Lab_1ED2.git
    cd tu-repositorio
    ```
 
