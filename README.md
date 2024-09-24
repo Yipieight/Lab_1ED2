@@ -111,6 +111,21 @@ Durante la implementación del sistema de inventarios de la librería, se identi
 
 - **Preprocesamiento de archivos de entrada**: Para manejar de manera más eficiente grandes volúmenes de datos, sería útil realizar un **preprocesamiento** de los archivos CSV de entrada. Esto incluye validar y limpiar los datos antes de su inserción en el sistema, lo cual reduce errores y mejora la velocidad de inserción.
 
+## Conclusiones
+
+Tras la implementación del sistema de inventarios utilizando árboles B, B* y B+, se concluye lo siguiente:
+
+- **Eficiencia en la gestión de inventarios**: La estructura de datos seleccionada ha demostrado ser eficaz para manejar grandes volúmenes de información. Las operaciones de búsqueda, inserción, actualización y eliminación se realizan de manera eficiente, lo cual mejora la experiencia del usuario y optimiza el rendimiento del sistema.
+
+- **Mejora en los tiempos de respuesta**: Gracias a la utilización de árboles B, el sistema mantiene los tiempos de respuesta constantes, incluso con un inventario que crece constantemente. Esta característica es especialmente útil durante picos de ventas, cuando la demanda de consultas es más alta.
+
+- **Facilidad de mantenimiento y escalabilidad**: La estructura de datos implementada facilita la expansión del sistema. La inclusión de nuevas funcionalidades, como el procesamiento de diferentes tipos de artículos, será sencilla gracias a la modularidad de la solución.
+
+- **Posibles mejoras**: Aunque el sistema actual cumple con los requisitos planteados, se han identificado varias áreas de mejora que podrían implementarse en futuras versiones, como la paralelización de operaciones, el caching de búsquedas frecuentes y la optimización de índices secundarios.
+
+En resumen, el sistema de inventarios propuesto satisface las necesidades actuales de la librería "Libros y Más", proporcionando una plataforma robusta, escalable y eficiente para la gestión de inventarios.
+
+
 
 
 ## Gracias!
