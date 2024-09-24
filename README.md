@@ -97,4 +97,20 @@ El archivo `Main.java` muestra cómo se pueden realizar estas operaciones:
 
 El proyecto lee datos de `lab01_books.csv` y escribe los resultados en `Output_Jose_Garcia_Lab1.txt`. Asegúrate de que estos archivos estén presentes en el directorio raíz del proyecto antes de ejecutar.
 
+## Recomendaciones para optimizar el sistema
+
+Durante la implementación del sistema de inventarios de la librería, se identificaron varias oportunidades de mejora para optimizar el rendimiento y la eficiencia:
+
+- **Optimización de la búsqueda**: Se recomienda implementar **índices secundarios** basados en nombres de libros. Esto mejoraría el rendimiento de las búsquedas que no se basan en el ISBN, ya que las búsquedas por nombre podrían ser más frecuentes.
+
+- **Uso de **caching** en búsquedas frecuentes**: Para reducir el tiempo de procesamiento de consultas repetitivas, es recomendable almacenar en caché los resultados de las búsquedas más comunes, evitando la reconstrucción del árbol para cada consulta recurrente.
+
+- **Paralelización de operaciones de actualización**: Se podrían implementar estrategias de **paralelización** o concurrencia controlada para manejar múltiples operaciones de actualización simultáneamente. Esto ayudaría a mejorar la eficiencia durante los picos de ventas y grandes cargas de trabajo.
+
+- **Uso de algoritmos de balanceo dinámico**: A medida que el inventario crece, es importante asegurar que el árbol permanezca balanceado. Implementar algoritmos de **balanceo dinámico** podría ser útil para mantener una eficiencia constante en las búsquedas, incluso con grandes volúmenes de datos.
+
+- **Preprocesamiento de archivos de entrada**: Para manejar de manera más eficiente grandes volúmenes de datos, sería útil realizar un **preprocesamiento** de los archivos CSV de entrada. Esto incluye validar y limpiar los datos antes de su inserción en el sistema, lo cual reduce errores y mejora la velocidad de inserción.
+
+
+
 ## Gracias!
