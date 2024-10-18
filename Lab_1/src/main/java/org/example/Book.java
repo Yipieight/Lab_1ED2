@@ -25,6 +25,11 @@ public class Book {
     @Expose
     private String quantity;
 
+    //variables de comprension para guardar
+    private String namesize;
+    private String namesizehuffman;
+    private String namesizearithmetic;
+
     public Book(String isbn) {
         this.isbn = isbn;
     }
@@ -80,16 +85,41 @@ public class Book {
         this.quantity = quantity;
     }
 
+    
+
+    public String getNamesize() {
+        return namesize;
+    }
+
+    public void setNamesize(String namesize) {
+        this.namesize = namesize;
+    }
+
+    public String getNamesizehuffman() {
+        return namesizehuffman;
+    }
+
+    public void setNamesizehuffman(String namesizehuffman) {
+        this.namesizehuffman = namesizehuffman;
+    }
+
+    public String getNamesizearithmetic() {
+        return namesizearithmetic;
+    }
+
+    public void setNamesizearithmetic(String namesizearithmetic) {
+        this.namesizearithmetic = namesizearithmetic;
+    }
+
     @Override
     public String toString() {
-        return "Book{" +
-                "isbn='" + isbn + '\'' +
-                ", name='" + name + '\'' +
-                ", author='" + author + '\'' +
-                ", category='" + category + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                '}';
+        return "Book [isbn=" + isbn + ", name=" + name + ", author=" + author + ", category=" + category + ", price="
+                + price + ", quantity=" + quantity + ", namesize=" + namesize + ", namesizehuffman=" + namesizehuffman
+                + ", namesizearithmetic=" + namesizearithmetic + "]";
     }
+
+    
+
+
 }
 

@@ -1,14 +1,18 @@
 package org.example;
 
+import java.util.*;
+
 public class BTree {
-    private int t;  // Grado mínimo del árbol B
+    private int t; // Grado mínimo del árbol B
     private Node root; // Nodo raíz del árbol B
+    private HashMap<String, Book> bookIndex = new HashMap<>();
+    private HashMap<String, Book> bookIndexName = new HashMap<>();
 
     // Clase Node
     private class Node {
-        int n;  // Número de claves en el nodo
+        int n; // Número de claves en el nodo
         boolean leaf; // Verdadero si el nodo es una hoja
-        Book[] keys;  // Array de claves
+        Book[] keys; // Array de claves
         Node[] children; // Array de hijos
 
         // Constructor del nodo
@@ -41,7 +45,8 @@ public class BTree {
 
     // Método de inserción en el árbol B
     public void insert(Book k) {
-        int isbn = Integer.parseInt(k.getIsbn());
+        bookIndex.put(k.getIsbn(), k);
+        long isbn = Long.parseLong(k.getIsbn());
         Node r = root;
         if (r.n == 2 * t - 1) {
             Node s = new Node(false);
@@ -56,23 +61,23 @@ public class BTree {
 
     // Método auxiliar para insertar en un nodo no lleno
     private void insertNonFull(Node x, Book k) {
-        int i = x.n - 1;
-        int isbn = Integer.parseInt(k.getIsbn());
+        int i = (int) x.n - 1;
+        long isbn = Long.parseLong(k.getIsbn());
         if (x.leaf) {
-            while (i >= 0 && Integer.parseInt(x.keys[i].getIsbn()) > isbn) {
+            while (i >= 0 && Long.parseLong(x.keys[i].getIsbn()) > isbn) {
                 x.keys[i + 1] = x.keys[i];
                 i--;
             }
             x.keys[i + 1] = k;
             x.n++;
         } else {
-            while (i >= 0 && Integer.parseInt(x.keys[i].getIsbn()) > isbn) {
+            while (i >= 0 && Long.parseLong(x.keys[i].getIsbn()) > isbn) {
                 i--;
             }
             i++;
             if (x.children[i].n == 2 * t - 1) {
                 splitChild(x, i, x.children[i]);
-                if (Integer.parseInt(x.keys[i].getIsbn()) < isbn) {
+                if (Long.parseLong(x.keys[i].getIsbn()) < isbn) {
                     i++;
                 }
             }
@@ -93,11 +98,11 @@ public class BTree {
             }
         }
         y.n = t - 1;
-        for (int j = x.n; j >= i + 1; j--) {
+        for (int j = (int) x.n; j >= i + 1; j--) {
             x.children[j + 1] = x.children[j];
         }
         x.children[i + 1] = z;
-        for (int j = x.n - 1; j >= i; j--) {
+        for (int j = (int) x.n - 1; j >= i; j--) {
             x.keys[j + 1] = x.keys[j];
         }
         x.keys[i] = y.keys[t - 1];
@@ -106,15 +111,15 @@ public class BTree {
 
     // Método de búsqueda por ISBN
     public Book search(String isbn) {
-        return search(root, Integer.parseInt(isbn));
+        return search(root, Long.parseLong(isbn));
     }
 
-    private Book search(Node x, int isbn) {
+    private Book search(Node x, long isbn) {
         int i = 0;
-        while (i < x.n && Integer.parseInt(x.keys[i].getIsbn()) < isbn) {
+        while (i < x.n && Long.parseLong(x.keys[i].getIsbn()) < isbn) {
             i++;
         }
-        if (i < x.n && Integer.parseInt(x.keys[i].getIsbn()) == isbn) {
+        if (i < x.n && Long.parseLong(x.keys[i].getIsbn()) == isbn) {
             return x.keys[i];
         } else if (x.leaf) {
             return null;
@@ -129,7 +134,7 @@ public class BTree {
     }
 
     private void printTree(Node x, int level, String prefix, boolean isLast) {
-        if (x!= null) {
+        if (x != null) {
             System.out.print(prefix);
             if (!isLast) {
                 System.out.print("  │");
@@ -140,30 +145,35 @@ public class BTree {
             for (int i = 0; i <= x.n; i++) {
                 if (!x.leaf) {
                     boolean newIsLast = i == x.n;
-                    printTree(x.children[i], level + 1, prefix + (isLast? "  " : "  │"), newIsLast);
+                    printTree(x.children[i], level + 1, prefix + (isLast ? "  " : "  │"), newIsLast);
                 }
             }
         }
     }
-
-
 
     // Método de actualización
     public void update(String isbn, String field, String newValue) {
         Book book = search(isbn);
         if (book != null) {
             switch (field) {
+                case "name":
+                    book.setName(newValue);
+                    bookIndex.put(isbn, book);
                 case "author":
                     book.setAuthor(newValue);
+                    bookIndex.put(isbn, book);
                     break;
                 case "category":
                     book.setCategory(newValue);
+                    bookIndex.put(isbn, book);
                     break;
                 case "price":
                     book.setPrice(newValue);
+                    bookIndex.put(isbn, book);
                     break;
                 case "quantity":
                     book.setQuantity(newValue);
+                    bookIndex.put(isbn, book);
                     break;
             }
         }
@@ -171,22 +181,35 @@ public class BTree {
 
     // Método de eliminación
     public void delete(String isbn) {
+        if (isbn.equals("9780001095984")) {
+            System.out.println();
+        }
+        bookIndex.remove(isbn);
         if (root == null) {
             return;
         }
-        delete(root, Integer.parseInt(isbn));
-        if (root.n == 0) {
+        delete(root, Long.parseLong(isbn));
+        if (root.n == 0 && (root.children[0] != null)) {
             if (root.leaf) {
                 root = null;
             } else {
                 root = root.children[0];
             }
         }
+
     }
 
-    private void delete(Node x, int isbn) {
+    public void changeKeyMap(){
+        for (Map.Entry<String, Book> entry : bookIndex.entrySet()) {
+            // Modificamos la clave, aquí como ejemplo la convertimos a String con un prefijo
+            String nuevaClave = entry.getValue().getName();
+            bookIndexName.put(nuevaClave, entry.getValue());
+        }
+    }
+
+    private void delete(Node x, long isbn) {
         int idx = findKey(x, isbn);
-        if (idx < x.n && Integer.parseInt(x.keys[idx].getIsbn()) == isbn) {
+        if (idx < x.n && Long.parseLong(x.keys[idx].getIsbn()) == isbn) {
             if (x.leaf) {
                 removeFromLeaf(x, idx);
             } else {
@@ -208,9 +231,9 @@ public class BTree {
         }
     }
 
-    private int findKey(Node x, int isbn) {
+    private int findKey(Node x, long isbn) {
         int idx = 0;
-        while (idx < x.n && Integer.parseInt(x.keys[idx].getIsbn()) < isbn) {
+        while (idx < x.n && Long.parseLong(x.keys[idx].getIsbn()) < isbn) {
             idx++;
         }
         return idx;
@@ -228,23 +251,23 @@ public class BTree {
         if (x.children[idx].n >= t) {
             Book pred = getPredecessor(x, idx);
             x.keys[idx] = pred;
-            delete(x.children[idx], Integer.parseInt(pred.getIsbn()));
+            delete(x.children[idx], Long.parseLong(pred.getIsbn()));
         } else if (x.children[idx + 1].n >= t) {
             Book succ = getSuccessor(x, idx);
             x.keys[idx] = succ;
-            delete(x.children[idx + 1], Integer.parseInt(succ.getIsbn()));
+            delete(x.children[idx + 1], Long.parseLong(succ.getIsbn()));
         } else {
             merge(x, idx);
-            delete(x.children[idx], Integer.parseInt(k.getIsbn()));
+            delete(x.children[idx], Long.parseLong(k.getIsbn()));
         }
     }
 
     private Book getPredecessor(Node x, int idx) {
         Node current = x.children[idx];
         while (!current.leaf) {
-            current = current.children[current.n];
+            current = current.children[(int) current.n];
         }
-        return current.keys[current.n - 1];
+        return current.keys[(int) current.n - 1];
     }
 
     private Book getSuccessor(Node x, int idx) {
@@ -272,19 +295,19 @@ public class BTree {
     private void borrowFromPrev(Node x, int idx) {
         Node child = x.children[idx];
         Node sibling = x.children[idx - 1];
-        for (int i = child.n - 1; i >= 0; i--) {
+        for (int i = (int) child.n - 1; i >= 0; i--) {
             child.keys[i + 1] = child.keys[i];
         }
         if (!child.leaf) {
-            for (int i = child.n; i >= 0; i--) {
+            for (int i = (int) child.n; i >= 0; i--) {
                 child.children[i + 1] = child.children[i];
             }
         }
         child.keys[0] = x.keys[idx - 1];
         if (!child.leaf) {
-            child.children[0] = sibling.children[sibling.n];
+            child.children[0] = sibling.children[(int) sibling.n];
         }
-        x.keys[idx - 1] = sibling.keys[sibling.n - 1];
+        x.keys[idx - 1] = sibling.keys[(int) sibling.n - 1];
         child.n++;
         sibling.n--;
     }
@@ -292,9 +315,9 @@ public class BTree {
     private void borrowFromNext(Node x, int idx) {
         Node child = x.children[idx];
         Node sibling = x.children[idx + 1];
-        child.keys[child.n] = x.keys[idx];
+        child.keys[(int) child.n] = x.keys[idx];
         if (!child.leaf) {
-            child.children[child.n + 1] = sibling.children[0];
+            child.children[(int) child.n + 1] = sibling.children[0];
         }
         x.keys[idx] = sibling.keys[0];
         for (int i = 1; i < sibling.n; i++) {
@@ -333,7 +356,7 @@ public class BTree {
 
     // Método de búsqueda por nombre
     public Book searchByName(String name) {
-        return searchByName(root, name);
+        return bookIndexName.get(name);
     }
 
     private Book searchByName(Node x, String name) {
@@ -349,7 +372,7 @@ public class BTree {
             }
         }
         if (!x.leaf) {
-            return searchByName(x.children[x.n], name);
+            return searchByName(x.children[(int) x.n], name);
         }
         return null;
     }
